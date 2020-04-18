@@ -1,0 +1,569 @@
+<template name="bot">
+    <div class="left-content" id="left-side">
+        <div class="row">
+            {{#unless isReadOnly userPermission}}
+            <div class="col-md-3 test-div" id="test-div">
+                <div class="sidebar-container">
+
+            <ul class="nav nav-tabs navs-3">
+
+                <li class="active"><a data-toggle="tab" href="#test-tab">
+                    {{_ "test"}}
+                </a></li>
+                <li><a data-toggle="tab" href="#output-tab">
+                    {{_ "output"}}
+                </a></li>
+               <!-- <li class=""><a data-toggle="tab" href="#console-tab">
+                    {{_ "console"}}
+                </a></li>-->
+            </ul>
+
+            <div class="tab-content">
+
+                <div id="test-tab" class="tab-pane active">
+                    <div class="chat-div" id="chat-div">
+                        {{#each messages}}
+                        {{#if user}}
+                          <div class="msg-container">
+                                <div class="user-message">{{text}}</div>
+                          </div>
+                        {{else}}
+                        {{#if error}}
+                         <div class="msg-container">
+                             <div class="bot-message-danger bot-message"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{text}}</div>
+                              </div>
+                        {{else}}
+                         <div class="msg-container">
+                             <div class="bot-message">{{text}}</div>
+                              </div>
+                        {{/if}}
+                        {{/if}}
+                        {{/each}}
+                        
+                    </div>
+                    <div class="action-button">
+                       
+                           <textarea id="message" class="message" rows="3"></textarea>
+                      
+                           <button class="btn btn-primary pull-right send-msg" id="send-msg">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        </button>
+                         <button class="btn btn-danger pull-left delete-msgs" id="delete-msgs">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                       
+                        
+                    </div>
+                </div>
+
+                <div id="output-tab" class="tab-pane">
+
+                   <div class="intent-info">
+                      {{#if testIntent.intent.name}}
+                    {
+                        <span class="node"> <b> {{_ "intents_id"}}</b>: {{testIntent.intent._id}}</span>
+                        <span class="node"> <b> {{_ "intents_name"}}</b>: {{testIntent.intent.name}}</span>
+                        <span class="node"> <b>{{_ "nodes"}}</b>:{</span>
+                        <span class="sub-node"> <b>{{_ "Sentence_id"}}</b>: {{testIntent.sentence._id}}</span>
+                        <span class="sub-node"> <b>{{_ "Sentence_Text"}}</b>: {{testIntent.sentence.text}}</span>
+                        <span class="node"> }</span>
+                        <span class="node"> <b> {{_ "answer_id"}}</b>: {{testIntent.answer._id}}</span>
+                        <span class="node"> <b> {{_ "answer_name"}}</b>: {{testIntent.answer.name}}</span>
+                        <span class="node"> <b> {{_ "answer_text"}}</b>: {{testIntent.answer.text}}</span>
+                    }
+                    {{/if}}
+                   </div>
+
+
+                </div>
+
+                <div id="console-tab" class="tab-pane">
+
+                 
+
+
+                </div>
+            </div>
+       
+
+        </div>
+            </div>
+              {{/unless}}
+            <div class="{{ReadOnlyClass userPermission}} components-canvas">
+                {{#unless isReadOnly userPermission}}
+                    <div class="components">
+                        <img class="component-item" src="/svg/botcomp.svg" alt="">
+                        <img class="component-item" src="/svg/usercomp.svg" alt="">
+                        <img class="component-item-disabled" src="/svg/nodejscomp.svg" alt="">
+                    </div>
+                {{/unless}}
+                
+                <div>
+                    <div class="options">
+                         {{#unless isReadOnly userPermission}}
+                            <button class="option-btn" id="expand-option"><i class="fa fa-expand" aria-hidden="true"></i></button>
+                            <button class="option-btn" id="move-canvas-option"><i class="fa fa-hand-rock-o" aria-hidden="true"></i></button>
+                            {{/unless}}
+                            <span class="options-sep"></span>
+                            <button class="option-btn" id="zoom-plus"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+                            <button class="option-btn" id="zoom-minus"><i class="fa fa-search-minus" aria-hidden="true"></i></button>
+                            <button class="option-btn" id="zoom-reset"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
+                            <span class="options-sep"></span>
+                             {{#unless isReadOnly userPermission}}
+                            <button class="option-btn" id="undo-option"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                            <button class="option-btn" id="redo-option"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                             {{/unless}}
+                        </div>
+                    <canvas id="maincanvas" class="maincanvas" name="canvas">
+                        
+                    </canvas>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+{{#unless isReadOnly userPermission}}
+    <div class="right-side-bar-bot" id="right-side">
+         <div class="sidebar-container">
+            <div class="button-list">
+                 <a class="a-rotation-btn" id="expand-btn">
+                    <i class="fa fa-arrow-left" aria-hidden="true" id="arrow-btn-expand"></i>
+                </a>
+                <a class="chat-btn a-rotation-btn" id="chat-btn">
+                    <i class="fa fa-comments" aria-hidden="true"></i> <span class="a-rotation-btn-text">{{_ "chat"}}</span>
+                </a>
+
+                <a class="users-btn a-rotation-btn" id="users-btn">
+                   <i class="fa fa-users" aria-hidden="true"></i> <span class="a-rotation-btn-text">{{_ "users"}}</span>
+                </a>
+
+                <a class="history-btn a-rotation-btn" id="history-btn">
+                     <i class="fa fa-history" aria-hidden="true"></i> <span class="a-rotation-btn-text">{{_ "history"}}</span>
+                </a>
+
+                <a class="settings-btn a-rotation-btn" id="settings-btn">
+                   <i class="fa fa-info-circle" aria-hidden="true"></i> <span class="a-rotation-btn-text">{{_ "settings"}}</span>
+                </a>
+                    {{#if isAdminOrEdit userPermission}}
+                <a class="generate-btn a-rotation-btn" id="generate-btn">
+                   <i class="fa fa-cogs" aria-hidden="true"></i> <span class="a-rotation-btn-text">{{_ "platforms"}}</span>
+                </a>
+                {{/if}}
+            </div>
+            <div class="tab-list" id="tab-list">
+                <div class="chat-div-tab div-content-tab is-active" id="chat-div-tab">
+                    <div class="message-div" id="message-div">
+                        {{#each getChats}}
+                        <strong class="userName" style="border-bottom: 1px solid #{{getUserColor userId}};color: #{{getUserColor userId}};">{{ownerName userId}}  <small>{{getDate dateAt}}</small> </strong>
+                        <span class="userMessage">{{text}}</span>
+                        {{/each}}     
+                    </div>
+                    <div class="action-button">               
+                        <textarea id="message-chat" class="message" rows="3"></textarea>
+                        <button class="btn btn-primary pull-right send-msg" id="send-chat">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="users-div-tab div-content-tab " id="users-div-tab">
+                    <div class="users-block">
+                        {{#if isAdminOrEdit userPermission}}
+                        <input type="text" class="form-control" id="addfriend" placeholder="{{_ 'addfriend'}}">
+                        <div id="listUsers" class="list-users">
+                          <!--   {{addFreindVal}}
+                            {{people addFreindVal}} -->
+                            {{#if peopleArray addFreindVal}}
+                                {{#each user in people addFreindVal}}
+                                    <div class="feed-activity-list">
+                                        <div class="feed-element">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="/img/profile.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <strong>{{user.profile.fullname}}</strong><br>
+                                                    {{#if userIsIn user._id bot._id}}
+                                                        {{#with userIsIn user._id bot._id}}
+                                                            <small class="text-muted">{{_ "added"}} <strong> {{userState permission}}</strong> <i class="fa fa-check added-icon" aria-hidden="true"></i></small>
+                                                        {{/with}}
+                                                    {{else}}
+                                                        <a class="send-invit-btn" id="{{user._id}}">   
+                                                            <small class="text-muted">{{_ "addhim"}} <i class="fa fa-paper-plane send-request-icon" aria-hidden="true"></i></small>
+                                                        </a>
+                                                    {{/if}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            {{else}}
+
+                            {{/if}}
+                        </div>
+                       <hr>
+                        {{/if}}
+                        {{#each user in bot.users}}
+                            <div class="user-block">
+                                <div class="user-ifos-block">
+                                    <span class="user-color" style="background-color:#{{user.color}}"></span>
+                                    {{ownerName user.id}}
+                                    {{addCurrentUserColor user}}
+                                    {{#if onLine user.nbrCnx}}
+                                        <span class="user-connected"></span>
+                                    {{else}}
+                                        <span class="user-not-connected"></span>
+                                    {{/if}}
+                                </div>
+                                {{#if isAdminOrEdit userPermission}}
+                                
+                                   {{#if thisUserIsAdmin user.permission userPermission}}
+                                    <div class="user-perm-block">
+                                       <strong> {{_ "permission"}}:</strong> <span class="user-permission-span">{{user.permission}}</span>
+                                       </div>
+                                   {{else}}
+                                        <div class="user-perm-block">
+                                       <strong> {{_ "permission"}}:</strong> 
+                                       <select class="user-perm-select" id="{{user.id}}" data-name="{{ownerName user.id}}">
+                                        {{#if isSelectedPerm user.permission 'edit'}}
+                                            <option value="edit" selected>{{_ "edit"}}</option>
+                                        {{else}}
+                                            <option value="edit">{{_ "edit"}}</option>
+                                        {{/if}}
+
+                                        {{#if isSelectedPerm user.permission 'readonly'}}
+                                            <option value="readonly" selected>{{_ "readonly"}}</option>
+                                        {{else}}
+                                            <option value="readonly">{{_ "readonly"}}</option>
+                                        {{/if}}
+
+                                        {{#if isSelectedPerm user.permission 'collaborator'}}
+                                            <option value="collaborator" selected>{{_ "collaborator"}}</option>
+                                        {{else}}
+                                            <option value="collaborator">{{_ "collaborator"}}</option>
+                                        {{/if}}
+                                        {{#if isAdmin userPermission}}
+                                        {{#if isSelectedPerm user.permission 'admin'}}
+                                            <option value="admin" selected>{{_ "admin"}}</option>
+                                        {{else}}
+                                            <option value="admin">{{_ "admin"}}</option>
+                                        {{/if}}
+                                        {{/if}}
+                                    </select>
+                                </div>
+                                  {{/if}}
+                                {{else}}
+                                <div class="user-perm-block">
+                                       <strong> {{_ "permission"}}:</strong> <span class="user-permission-span">{{user.permission}}</span>
+                                       </div>
+                                  {{/if}}
+                            </div>
+                        {{/each}}
+
+                    </div>
+                </div>
+                <div class="history-div-tab div-content-tab " id="history-div-tab">
+                    {{#each history in Histories}}
+                        <div>
+                          <strong>  {{ownerName history.userId}}</strong>
+                            {{getAction history.action}}
+                            {{#if isUnDef history.componentId}}
+                               <strong> {{getComponentName history.componentId}}</strong>
+                            {{/if}}
+                        </div>
+                    {{/each}}
+
+                </div>
+                <div class="settings-div-tab div-content-tab " id="settings-div-tab">
+                      {{#if isAdminOrEdit userPermission}}
+                    <div class="edit-button">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal4">
+                               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+                        
+                    </div>
+                    {{/if}}
+                    {{#with bot}}
+                        <div class="bot-image-container">
+                            <img class="bot-image" alt="" src="{{img}}">    
+                        </div> 
+                        <h3 class="bot-name-h3"> {{name}}</h3>
+                  
+                        <div class="tab-pane-css">
+
+                            <ul class="list-group">
+                            <li class="list-group-item info-bots">
+                                
+                               {{_ "category"}}
+                               <span class="badge badge-primary badge-info-bots">{{categoryName category}}</span>
+                            </li>
+                            <li class="list-group-item info-bots">
+                               
+                             {{_ "owner"}}
+                              <span class="badge badge-primary badge-info-bots">  {{ownerName ownerId}}</span>
+                            </li>
+                            <li class="list-group-item info-bots">
+                         
+                            {{_ "description"}}
+                                   <span class="badge badge-primary badge-info-bots">{{description}}</span>
+                            </li>
+                        </ul>
+                        </div>
+                    {{/with}}
+                </div>
+                    {{#if isAdminOrEdit userPermission}}
+                <div class="generate-div-tab div-content-tab is-active" id="generate-div-tab">
+                     <div class="platforms">
+                        <button class="btn messanger-btn" data-toggle="modal" data-target="#facebookModal" >
+                            <img class="messanger-btn-img" alt="" src="/messager.png">
+                        </button>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+       
+            
+        </div>  
+    </div>
+      {{/unless}}
+    {{#if isAdminOrEdit userPermission}}
+       {{#with bot}}
+    <div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeIn">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-pencil modal-icon"></i>
+                     
+                    <h4 class="modal-title">{{_ "editBotModalTitle"}} {{name}}</h4>
+                </div>
+                <div class="modal-body">
+                     <div class="form-group">
+                        <label for="pagefbid">{{_ 'name'}}</label>
+                        <input type="text" class="form-control" id="botname" placeholder="{{_ 'name'}}" value="{{name}}">
+                    </div>
+                     <div class="form-group">
+                        <label for="pagefbid">{{_ 'category'}}</label>
+                        <select class="form-control" id="botcategory" >
+                             {{#if isCategory category ''}}
+                             <option value="" disabled selected>{{_ 'category'}}</option>
+                             {{else}}
+                             <option value="" disabled selected>{{_ 'category'}}</option>
+                             {{/if}}
+                            
+                            {{#if isCategory category 'general'}}
+                             <option value="general" selected>{{_ 'general'}}</option>
+                             {{else}}
+                             <option value="general">{{_ 'general'}}</option>
+                             {{/if}}
+
+                             {{#if isCategory category 'commerce'}}
+                             <option value="commerce" selected>{{_ 'commerce'}}</option>
+                             {{else}}
+                             <option value="commerce">{{_ 'commerce'}}</option>
+                             {{/if}}
+
+                             {{#if isCategory category 'medical'}}
+                             <option value="medical" selected>{{_ 'medical'}}</option>
+                             {{else}}
+                             <option value="medical">{{_ 'medical'}}</option>
+                             {{/if}}
+
+                             {{#if isCategory category 'sport'}}
+                             <option value="sport" selected>{{_ 'sport'}}</option>
+                             {{else}}
+                             <option value="sport">{{_ 'sport'}}</option>
+                             {{/if}}
+
+                             {{#if isCategory category 'news'}}
+                             <option value="news" selected>{{_ 'news'}}</option>
+                             {{else}}
+                             <option value="news">{{_ 'news'}}</option>
+                             {{/if}}
+
+                             {{#if isCategory category 'humor'}}
+                             <option value="humor" selected>{{_ 'humor'}}</option>
+                             {{else}}
+                             <option value="humor">{{_ 'humor'}}</option>
+                             {{/if}}
+                        </select>
+                    </div>
+                     <div class="form-group">
+                        <label for="pagefbid">{{_ 'description'}}</label>
+                        <textarea type="text" class="text-area" rows="3" id="botdescription" placeholder="{{_ 'description'}}">{{description}}
+                        </textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">{{_ 'close'}}</button>
+                    <button type="button" class="btn btn-primary" id="save-info">{{_ 'saveChange'}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/with}}
+
+
+
+    <div class="modal inmodal" id="facebookModal" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeIn">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-pencil modal-icon"></i>
+                     
+                    <h4 class="modal-title">{{_ "sharefacebookmessanger"}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="pagefbid">{{_ 'pagefbid'}}</label>
+                        <input type="text" class="form-control" id="pagefbid" placeholder="{{_ 'pagefbid'}}">
+                    </div>
+                     <div class="form-group">
+                        <label for="verifytoken">{{_ 'verifytoken'}}</label>
+                        <input type="text" class="form-control" id="verifytoken" placeholder="{{_ 'verifytoken'}}">
+                    </div>
+
+                     {{#with bot}}
+                        {{#if page_token}}
+                         {{_ "verify_token"}}:<h4> {{verify_token}}</h4>
+                          {{_ "callback_url"}}:<h4> {{_ "callbackurl"}}/{{_id}}</h4>
+                        {{/if}}
+                      {{/with}}
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">{{_ 'close'}}</button>
+                    <button type="button" class="btn btn-primary" id="botfbsettings">{{_ 'saveChange'}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+{{#unless isReadOnly userPermission}}
+      <div class="modal inmodal" id="myModalIntentUser" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeIn">
+                <div class="modal-header">
+                    <button type="button" class="close closeAddIntent" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-plus modal-icon"></i>
+                     
+                    <h4 class="modal-title">{{_ 'addIntentuser'}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="intent">{{_ 'intent'}}</label>
+                        <input type="text" class="form-control" id="intent" placeholder="{{_ 'intent'}}" value="{{intent.name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="sentence">{{_ 'sentence'}}</label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="sentence" placeholder="{{_ 'sentence'}}">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-info btn-block" id="addSentence"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <table class="table table-condensed">
+                        <tbody>
+                        {{#each sentences intent._id}}
+                        
+                            <tr>
+                                <td>{{text}}</td>
+                                <td>
+                                    <button class="btn btn-danger remove-sentense" sentence-id="{{_id}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                       
+                        {{/each}}
+                         </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white closeAddIntent" >{{_ 'close'}}</button>
+                    <button type="button" class="btn btn-primary" id="addIntent">{{_ 'saveChange'}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="modal inmodal" id="myModalAnswerBot" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <button type="button" class="close closeAddAnswer"  data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-plus modal-icon"></i>
+
+                <h4 class="modal-title">{{_ 'addIntentBot'}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="name">{{_ 'name'}}</label>
+                    <input type="text" class="form-control" id="name" placeholder="{{_ 'name'}}" value="{{answer.name}}">
+                </div>
+             <!--   <div class="form-group">
+                    <label for="answerTypeSimple">
+                    <input type="radio" class="answerType" id="answerTypeSimple" name="answerType" {{isChecked answer.type 'simple'}}> {{_ 'simple'}}</label>
+                </div>-->
+               <!--   <div class="form-group" id="simpleAnswer" style="{{isDisplayed answer.type 'generic'}}">-->
+                    <label for="answer">{{_ 'answer'}}</label>
+                    <input type="text" class="form-control" id="answer" placeholder="{{_ 'answer'}}" value="{{answer.text}}">
+               <!--   </div>
+                <div class="form-group">
+                    <label for="answerTypeGeneric">
+                    <input type="radio" class="answerType" id="answerTypeGeneric" name="answerType" {{isChecked answer.type 'generic'}}> {{_ 'Generic'}}</label>
+                </div>
+                <div class="form-group" id="genericAnswer" style="{{isDisplayed answer.type 'generic'}}">
+                    <label for="answer">{{_ 'answer'}}</label>
+                    <div class="row answer-row">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="answerTitle" placeholder="{{_ 'title'}}" value="">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="answerSubTitle" placeholder="{{_ 'subtitle'}}" value="">
+                        </div>
+                    </div>
+                    <div class="row answer-row">
+                         <div class="col-md-12">
+                             <input type="text" class="form-control" id="answerImageUrl" placeholder="{{_ 'image_url'}}" value="">
+                        </div>
+                    </div>
+                    <div class="row answer-row">
+                         <div class="col-md-12">
+                             <input type="text" class="form-control" id="defaultUrl" placeholder="{{_ 'default_url'}}" value="">
+                        </div>
+                    </div>
+                    <div class="row answer-row">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="answerWebUrl" placeholder="{{_ 'web_url'}}" value="">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="answerWebUrlName" placeholder="{{_ 'web_url_name'}}" value="">
+                        </div>
+                    </div>
+                    <div class="row answer-row">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="answerPostback" placeholder="{{_ 'postback'}}" value="">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="answerPostbackName" placeholder="{{_ 'postback_name'}}" value="">
+                        </div>
+                    </div>
+                    <div class="row answer-row">
+                        <div class="pull-right button-answer-row">
+                            <button type="button" class="btn btn-info" id="addGenericAnswer"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white closeAddAnswer">{{_ 'close'}}</button>
+                <button type="button" class="btn btn-primary" id="addAnswer">{{_ 'saveChange'}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{/unless}}
+</template>

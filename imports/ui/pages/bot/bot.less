@@ -1,0 +1,497 @@
+@right-side-bar-bot: #1483C6;
+@right-side-bar-bot-border: #e7eaec;
+@white: #fff;
+@infocolor: #555;
+.maincanvas {
+    // background: @white;
+}
+
+.right-side-bar-bot {
+    background-color: @white;
+    border-left: 1px solid @right-side-bar-bot-border;
+    border-top: 1px solid @right-side-bar-bot-border;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+ /*   width: 0;*/
+    z-index: 1009;
+    bottom: 0;
+    right: 0;
+    float: right;
+
+}
+.button-list{
+        width: 50px;
+    float: left;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.tab-list.width-tab-list{
+    width:250px;
+     -webkit-transition: width 2ss; /* Safari */
+    transition: width 0.5s;
+}
+.tab-list{
+    width:0;
+     transition: width 0.5s;
+         float: left;
+}
+
+
+.a-rotation-btn,.a-rotation-btn:active,.a-rotation-btn:focus,.a-rotation-btn:visited{
+        width: 100%;
+    display: block;
+    float: left;
+    padding: 5px;
+    text-align: center;
+    font-size: 25px;
+    color: @infocolor;
+    text-transform: capitalize;
+}
+.a-rotation-btn.active-item-a{
+     color: @right-side-bar-bot!important;
+}
+.a-rotation-btn:hover{
+ color: @right-side-bar-bot,
+}
+.a-rotation-btn-text{
+   font-size: 8px; 
+   display: block
+}
+.rotation-btn{
+-webkit-transform: rotate(90deg);	
+-moz-transform: rotate(90deg);
+-ms-transform: rotate(90deg);
+-o-transform: rotate(90deg);
+transform: rotate(90deg);
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.div-content-tab{
+    width: 100%;
+    display: none;
+    
+
+}
+
+.is-active{
+    display: block
+}
+
+.right-side-bar-bot ul.nav-tabs li a {
+    border: none;
+    padding: 12px 10px;
+    margin: 0;
+    border-radius: 0;
+    background: @right-side-bar-bot;
+    color: @white;
+    text-align: center;
+    border-right: 1px solid @right-side-bar-bot;
+}
+
+.right-side-bar-bot ul.nav-tabs>li.active a {
+    color: @right-side-bar-bot!important;
+}
+
+.bot-image {
+    height: 110px!important;
+    width: 110px!important;
+    border-radius: 50%!important;
+}
+
+.bot-image-container {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.bot-name-h3 {
+    text-align: center
+}
+
+.tab-pane-css {
+    padding: 10px;
+    font-size: 15px;
+    color: @infocolor;
+}
+
+.edit-button {
+    padding: 15px;
+    width: 100%;
+    text-align: right;
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.left-content {
+    /*  background: #333;*/
+    width: 100%;
+    overflow: hidden;
+}
+
+.test-div {
+    border-right: 1px solid @infocolor;
+    border-bottom: 1px solid @infocolor;
+    padding: 0!important;
+}
+
+.send-msg {
+    margin-top: 15px;
+}
+
+.delete-msgs {
+    margin-top: 15px;
+}
+
+.message-conatiner {
+    padding: 0!important;
+}
+
+.message {
+    width: 100%;
+}
+
+#test-tab {
+    padding: 15px 15px 15px 30px;
+}
+
+.chat-div {
+    border: 1px solid @infocolor;
+    padding: 15px;
+    overflow: auto;
+    background: white;
+}
+
+.action-button {
+    margin-top: 15px;
+}
+
+.component-item {
+    cursor: pointer;
+    width: 150px;
+    margin-right: 15px;
+}
+
+.component-item-disabled {
+    width: 150px;
+    margin-right: 15px;
+}
+
+.components {
+    padding: 5px 0;
+}
+
+.expanded {
+    height: 0;
+    padding: 0;
+    transition: max-height 0.15s ease-out;
+}
+
+.expanded-div {
+    width: 0;
+    padding: 0;
+    transition: max-width 0.15s ease-out;
+}
+
+.options {
+    position: absolute;
+    z-index: 999;
+}
+
+.option-btn,
+.option-btn:focus,
+.option-btn:active,
+.option-btn:visited {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #ddd;
+    font-size: 20px;
+    outline: 0;
+    background: #f5f8f9;
+}
+
+.moving {
+    border: 1px solid #1483C6!important;
+    color: #1483C6!important;
+}
+
+.option-btn:hover,
+.option-btn:focus:active,
+{
+    border: 1px solid #1483C6;
+    color: #1483C6;
+}
+
+.user-message {
+    float: right;
+    font-size: 15px;
+    padding: 10px;
+    word-break: break-all;
+    width: 150px;
+    display: block;
+    word-wrap: break-word;
+    background: #eee;
+    border-radius: 5px;
+}
+
+.bot-message {
+    float: left;
+    padding: 10px;
+    word-break: break-all;
+    width: 150px;
+    display: block;
+    word-wrap: break-word;
+    background: #1483C6;
+    color: white;
+    border-radius: 5px;
+}
+
+.bot-message-danger {
+    background: #ED5565!important;
+    color: white;
+}
+
+.msg-container {
+    width: 100%;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.separator {
+    border-bottom: 1px solid @infocolor;
+}
+
+.platforms {
+    padding: 15px
+}
+
+.messanger-btn-img {
+    width: 50px;
+}
+
+.messanger-btn {
+    padding: 3px 6px!important;
+}
+
+.badge-info-bots,
+.info-bots * {
+    text-transform: capitalize
+}
+.info-bots{
+    width: 100%;
+    float:left
+}
+.intent-info {
+    padding: 15px 30px;
+}
+
+.node {
+    display: block;
+    padding-left: 15px;
+}
+.sub-node{
+    display: block;
+    padding-left: 30px;
+}
+.text-area {
+    width: 100%
+}
+
+.message-div {
+    padding: 15px;
+    background: white;
+    float: left;
+    overflow: auto;
+    margin-bottom: 15px;
+}
+
+.userName {
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.userMessage {
+    width: 100%;
+    word-break: break-all;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.userName small {
+    font-weight: lighter;
+}
+
+.user-color{
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+.user-connected{
+        width: 15px;
+    height: 15px;
+    background-color: #1AB394;
+    float: right;
+    margin-top: 2px;
+    border-radius: 50%;
+}
+
+.user-not-connected{
+       width: 15px;
+    height: 15px;
+    background-color: #c3c3c3;
+    float: right;
+    margin-top: 2px;
+    border-radius: 50%;
+}
+
+.users-block{
+    padding: 15px;
+}
+
+.badge-info-bots {
+    display: block;
+    width: 100%;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+    padding: 5px;
+    text-align: justify;
+}
+
+.list-users{
+    padding: 10px 0;
+    float: left;
+}
+
+.list-users .feed-element{
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.send-invit-btn{
+    cursor: pointer;
+    color: #158ED7;
+}
+
+.send-invit-btn .text-muted{
+    color: #158ED7;
+}
+
+.added-icon{
+    color: #1D9C73;
+}
+
+.send-request-icon{
+      color: #158ED7;  
+}
+
+.users-block hr{
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+}
+.user-block{
+       padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.user-perm-select{
+    background: #fff;
+    border-color: #fff;
+    text-transform: capitalize;
+}
+
+.user-perm-select option{
+    text-transform: capitalize
+}
+
+
+.user-permission-span{
+    text-transform: capitalize
+}
+
+
+.rightpopups {
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+  position: absolute;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  -moz-box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  overflow-y: auto;
+  z-index: 100;
+  display: none;
+  top: 0;
+  left: 0;
+  min-width: 150px;
+}
+
+.rightpopups li {
+  padding: 8px 15px;
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  color: #555;
+  transition-duration: .3s;
+  -moz-transition-duration: .3s;
+  -webkit-transition-duration: .3s;
+  -o-transition-duration: .3s;
+  font-size: 14px;
+  width: 100%;
+  position: relative;
+  text-transform: none;
+  display: block;
+}
+
+.rightpopups li:hover {
+  border: none;
+  color: #333;
+  background: #fcfcfc;
+}
+
+.rightpopups .header {
+  background: #ccc;
+  margin-top: -8px;
+  padding: 15px 20px;
+}
+
+.rightpopups .divider {
+  margin: 7px 15px;
+  background-color: #aaa;
+}
+
+.history-div-tab{
+    padding: 10px;
+}
+
+.answer-row{
+    margin: 10px 0;
+}
+
+.button-answer-row{
+    padding: 0 15px;
+}

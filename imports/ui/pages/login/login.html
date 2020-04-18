@@ -1,0 +1,55 @@
+<template name="login">
+    <div class="loginColumns animated fadeInDown">
+        <div class="row">
+
+            <div class="col-md-6">
+                <h2 class="font-bold">{{_ "welcome"}}</h2>
+                <div class=" bot-img-container">
+                    <img alt="" src="/bot.png" class="bot-img">     
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="ibox-content">
+                    <form class="m-t" role="form" id="login-form" action="/dashboard1">
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" class="form-control required" placeholder="{{_ 'email'}}" required="" >
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password"  class="form-control required" placeholder="{{_ 'password'}}" required="">
+                        </div>
+                        <button type="submit" class="btn btn-primary block full-width m-b">{{_ "login"}}</button>
+
+                        <a href="#">
+                            <small>{{_ "forgotpass"}}</small>
+                        </a>
+
+                        <p class="text-muted text-center">
+                            <small>{{_ "haveaccount"}}</small>
+                        </p>
+                        <a class="btn btn-sm btn-white btn-block" href="/register">{{_ "createaccount"}}</a>
+                        <p class="m-t">
+                            <button class="btn btn-success btn-facebook btn-circle btn-lg" id="login-facebook">
+                                <i class="fa fa-facebook"> </i> 
+                            </button>
+                            <button class="btn btn-success btn-twitter btn-circle btn-lg" id="login-twitter">
+                                <i class="fa fa-twitter"> </i> 
+                            </button>
+                          <!--  <button class="btn btn-success btn-google btn-circle btn-lg" id="login-google">
+                                <i class="fa fa-google-plus"> </i> 
+                            </button>-->
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-6">
+                {{_ "copyright"}}
+            </div>
+            <div class="col-md-6 text-right">
+                <small>© {{_ "date"}}</small>
+            </div>
+        </div>
+    </div>
+</template>

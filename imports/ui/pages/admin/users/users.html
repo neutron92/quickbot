@@ -1,0 +1,88 @@
+<template name="users">
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{_ "projects"}}</h5>
+                    
+                                <div class="ibox-tools">
+                                     <button  data-toggle="modal" data-target="#myModalAddUser" type="button" class="btn btn-w-m btn-success"><i class="fa fa-plus" aria-hidden="true"></i> {{_ "addnewuser"}}</button>
+                                </div>
+                    </div>
+                    <div class="ibox-content">
+                      
+                        <div class="table-responsive">
+                        <table class="table" id="list-users">
+                            <thead>
+                            <tr>
+                                <th>{{_ "fullname"}}</th>
+                                <th>{{_ "id"}}</th>
+                                <th>{{_ "gender"}}</th>
+                                <th>{{_ "email"}}</th>
+                                <th>{{_ "role"}}</th>
+                                <th>{{_ "actions"}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {{#each user in users}}
+                                <tr>
+                                    <td>{{user.profile.fullname}}</td>
+                                    <td>{{user._id}}</td>
+                                    <td>{{user.gender}}</td>
+                                    <td>{{getEmail user}}</td>
+                                    <td>{{getRole user}}</td>
+                                    <td>
+                                        {{#unless isSuperAdmin user}}
+                                        <button class="btn btn-danger btn-sm deleteUser" id="{{user._id}}">
+                                           <i class="fa fa-trash" aria-hidden="true"></i> {{_ "delete"}}
+                                        </button>
+                                        {{/unless}}
+                                        
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            
+                            </tbody>
+                           
+                        </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal inmodal" id="myModalAddUser" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <button type="button" class="close"  data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-plus modal-icon"></i>
+
+                <h4 class="modal-title">{{_ 'addnewuser'}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="name">{{_ 'name'}}</label>
+                    <input type="text" class="form-control" id="name" placeholder="{{_ 'name'}}">
+                </div>
+                <div class="form-group">
+                    <label for="answer">{{_ 'email'}}</label>
+                    <input type="email" class="form-control" id="email" placeholder="{{_ 'email'}}" >
+                </div>
+                <div class="form-group">
+                    <label for="password">{{_ 'password'}}</label>
+                    <input type="password" class="form-control" id="password" placeholder="{{_ 'password'}}" >
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">{{_ 'close'}}</button>
+                <button type="button" class="btn btn-primary" id="adduser">{{_ 'addnewuser'}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</template>

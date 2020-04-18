@@ -1,0 +1,43 @@
+<template name="navigation">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+
+            <!-- Close canvas menu used only on OffCanvas page -->
+            <!-- You can remove this tag if you dont use offCanvas menu -->
+            <a class="close-canvas-menu"><i class="fa fa-times"></i></a>
+            <!-- End offCanvas menu toggle -->
+
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="/bot.png" style=" width: 70px; "/>
+                             </span>
+                    </div>
+              
+                </li>
+                {{#if isAdmin}}
+                    <li class="{{isActivePath regex='bot|projects'}}">
+                        <a href="/admin/projects"><i class="fa fa-user-secret"></i> {{_ "bots"}}</a>
+                    </li>
+                    <li class="{{isActivePath regex='/messages'}}">
+                        <a href="/admin/users"><i class="fa fa-users"></i> {{_ "users"}} </a>
+                    </li>
+                {{/if}}
+
+                {{#if isNot}}
+                    <li class="{{isActivePath regex='bot|projects'}}">
+                        <a href="/projects"><i class="fa fa-user-secret"></i> {{_ "bots"}}</a>
+                    </li>
+                      <!-- <li class="{{isActivePath regex='/messages'}}">
+                        <a href="/messages"><i class="fa fa-envelope"></i> {{_ "messages"}} </a>
+                    </li>
+                 <li class="{{isActivePath regex='/profile'}}">
+                        <a href="/profile"><i class="fa fa-user"></i> {{_ "profile"}}</a>
+                    </li>-->
+                {{/if}}
+                
+            </ul>
+
+        </div>
+    </nav>
+</template>

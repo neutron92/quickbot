@@ -1,0 +1,62 @@
+<template name="projects">
+
+    <!-- Page heading -->
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
+            <h2>{{_ "Projects"}}</h2>
+        </div>
+         <div class="col-lg-4 search-div">
+           <div class="input-group">
+                <input type="text" id="search-input-bots" placeholder="{{_ 'searchbots'}} " class="input form-control">
+                    <span class="input-group-btn">
+                            <span  class="span-btn" id="span-search-bots"> <i class="fa fa-search"></i> {{_ "search"}}</span>
+                    </span>
+            </div>
+        </div>
+    </div>
+
+<div class="wrapper wrapper-content animated fadeInRight bots">
+
+        <div class="col-md-3">
+            <div class="contact-box center-version bot-block">
+
+                <a href="/bot" id="add-new-bot">
+
+                    <i class="fa fa-plus-circle add-bot-icon" aria-hidden="true"></i>
+                    <h1 class="bot-name"> {{_ "addnewbot"}}</h1>
+                </a>
+
+            </div>
+        </div>
+        {{#each bot in myBots}}
+        <div class="col-md-3">
+      
+
+               <div class="contact-box center-version bot-block">
+
+                <a href="/bot/{{bot._id}}">
+
+                    <img alt="image" class="img-circle bot-image" src="{{bot.img}}">
+                    <h1 class="bot-name"> {{bot.name}}</h1>
+                </a>
+                   <div class="contact-box-footer bot-footer">
+                       <h3 class="bot-name"> {{bot.name}}</h3>
+                    <div class="m-t-xs btn-group">
+                        <a href="{{pathFor '/bot/:id' id=bot._id}}" class="btn btn-xs btn-success"><i class="fa fa-pencil-square-o"></i> {{_ "edit"}} </a>
+                        {{#if isMine bot.ownerId}}
+                        <a  href="" class="btn btn-xs btn-danger deleteBot" id="{{bot._id}}"><i class="fa fa-trash"></i> {{_ "delete"}}</a>
+                        {{/if}}
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {{/each}}
+        
+
+
+
+
+</div>
+</template>
